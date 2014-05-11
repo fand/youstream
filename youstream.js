@@ -1,0 +1,51 @@
+var spawn = require('child_process').spawn;
+var fs = require('fs');
+var url = require('url');
+var es = require('event-stream');
+
+var createYouStream = function (url, options, auth_path) {
+
+  // Prepare args.
+  if (typeof options === 'undefined') {
+    options = [];
+  }
+  if (typeof auth_path === 'undefined') {
+    auth_path = './auth.json';
+  }
+
+  // Create a relay stream.
+  var stream = es.through();
+
+  // Read auth info file.
+  fs.readFile(auth_path, function (err, data) {
+    if (err) {
+      throw err;
+    }
+
+    var sites_auth = JSON.parse(data);    // username, password for websites.
+
+    // Prepare options.
+    var opt_auth = getAuthInfo(url, sites_auth);
+    var opt_default = ['-q', '-o', '-', url];
+    options = options.concat(opt_auth).concat(opt_default);
+
+    // Pipe the stream.
+    var youtube_dl = spawn('youtube-dl', options);
+    youtube_dl.stdout.pipe(stream);
+  });
+
+  return stream;
+};
+
+// Get auth info for the site.
+var getAuthInfo = function (site_url, sites_auth) {
+  var hostname = url.parse(site_url).hostname;
+  for (var site in sites_auth) {
+    if (hostname.match(site)) {
+      return sites_auth[site];
+    }
+  }
+  return [];
+};
+
+module.exports = createYouStream;
