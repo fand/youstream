@@ -3,6 +3,15 @@ var fs = require('fs');
 var url = require('url');
 var es = require('event-stream');
 
+
+/**
+ * Create a stream of video w/ youtube-dl.
+ *
+ * @param  {String}        url         - The url of the video.
+ * @param  {Array<String>} [options]   - Options for youtube-dl.
+ * @param  {String}        [auth_path] - The path of the JSON file of user info.
+ * @return {DuplexStream} - The stream of the video.
+ */
 var createYouStream = function (url, options, auth_path) {
 
   // Prepare args.
@@ -37,7 +46,14 @@ var createYouStream = function (url, options, auth_path) {
   return stream;
 };
 
-// Get auth info for the site.
+
+/**
+ * Get auth info for the site.
+ *
+ * @param  {String}        site_url   - The url of the site to log in.
+ * @param  {Object}        sites_auth - The hash list of site names and the uesr info.
+ * @return {Array<String>} - The user info for the site.
+ */
 var getAuthInfo = function (site_url, sites_auth) {
   var hostname = url.parse(site_url).hostname;
   for (var site in sites_auth) {
