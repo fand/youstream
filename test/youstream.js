@@ -21,6 +21,7 @@ vows.describe('download').addBatch((function () {
 
   var tests = {};
   var sites = JSON5.parse('' + fs.readFileSync('./test/sites.json5'));
+  var tmpfile_id = 0;
 
   _.each(sites, function (site, sitename) {
     _.each(site, function (video, i) {
@@ -31,14 +32,11 @@ vows.describe('download').addBatch((function () {
         if (_.has(video, 'file')) {
           filename = video.file;
         }
-        else if (_.has(video, 'id') && _.has(video, 'ext')) {
-          filename = video.id + '.' + video.ext;
-        }
-        else if (_.has(video, 'md5') && _.has(video, 'ext')) {
-          filename = video.md5 + '.' + video.ext;
+        else if (_.has(video, 'ext')) {
+          filename = tmpfile_id+ + video.ext;
         }
         else {
-          filename = Date.now().toString();
+          filename = tmpfile_id++ + 'tmp';
         }
         var filepath = path.join(__dirname, filename);
 
