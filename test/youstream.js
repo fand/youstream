@@ -42,8 +42,16 @@ vows.describe('download').addBatch((function () {
 
         // Prepare options.
         var options = [];
-        if (_.has(video, 'params') && _.has(video.params, 'videopassword')) {
-          options = options.concat(['--video-password', video.params.videopassword]);
+        if (_.has(video, 'params')) {
+          if (_.has(video.params, 'videopassword')) {
+            options = options.concat(['--video-password', video.params.videopassword]);
+          }
+          if (_.has(video.params, 'username')) {
+            options = options.concat(['--username', video.params.username]);
+          }
+          if (_.has(video.params, 'password')) {
+            options = options.concat(['--password', video.params.password]);
+          }
         }
 
         return {

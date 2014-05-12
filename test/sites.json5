@@ -203,5 +203,22 @@
                 "format": "141"
             }
         }
-    ]
+    ],
+    "niconico": [{
+        "url": "http://www.nicovideo.jp/watch/sm22312215",
+        "md5": "d1a75c0823e2f629128c43e1212760f9",
+        "info_dict": {
+            "id": "sm22312215",
+            "ext": "mp4",
+            "title": "Big Buck Bunny",
+            "uploader": "takuya0301",
+            "uploader_id": "2698420",
+            "upload_date": "20131123",
+            "description": "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org",
+        },
+        "params": {
+            "username": "ydl.niconico@gmail.com",
+            "password": "youtube-dl",
+        },
+    }]
 }
