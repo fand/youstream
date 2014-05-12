@@ -1,19 +1,26 @@
 var vows = require('vows');
 var assert = require('assert');
-
 var fs = require('fs');
 var path   = require('path');
-var Promise = require('events').EventEmitter;
-
-var _ = require('lodash');
 var crypto = require('crypto');
+var JSON5 = require('json5');
+var _ = require('lodash');
 
 var youstream = require('..');
+
+
+// Helpers
+var md5_hex = function (src) {
+  var md5hash = crypto.createHash('md5');
+  md5hash.update(src, 'binary');
+  return md5hash.digest('hex');
+};
+
 
 vows.describe('download').addBatch((function () {
 
   var tests = {};
-  var sites = JSON.parse(fs.readFileSync('./test/sites.json'));
+  var sites = JSON5.parse('' + fs.readFileSync('./test/sites.json5'));
 
   _.each(sites, function (site, sitename) {
     _.each(site, function (video, i) {
@@ -35,16 +42,15 @@ vows.describe('download').addBatch((function () {
         }
         var filepath = path.join(__dirname, filename);
 
-        var md5_hex = function (src) {
-          var md5 = crypto.createHash('md5');
-          md5.update(src, 'binary');
-          return md5.digest('hex');
-        };
+        // Prepare options.
+        var options = [];
+        if (_.has(video, 'params') && _.has(video.params, 'videopassword')) {
+          options = options.concat(['--video-password', video.params.videopassword]);
+        }
 
         return {
           topic: function() {
-            var promise = new Promise();
-            var dl = youstream(video.url, []);
+            var dl = youstream(video.url, options);
             var cb = this.callback;
 
             dl.pipe(fs.createWriteStream(filepath, 'binary'));
@@ -93,6 +99,7 @@ vows.describe('download').addBatch((function () {
   return tests;
 
 }).bind(this)()).export(module);
+
 
 // Show the error when vows test fails ailently.
 process.on('uncaughtException', function(err) {
