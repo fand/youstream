@@ -37,7 +37,7 @@ vows.describe('download').addBatch((function () {
 
         var md5_hex = function (src) {
           var md5 = crypto.createHash('md5');
-          md5.update(src, 'utf8');
+          md5.update(src, 'binary');
           return md5.digest('hex');
         };
 
@@ -47,7 +47,7 @@ vows.describe('download').addBatch((function () {
             var dl = youstream(video.url, []);
             var cb = this.callback;
 
-            dl.pipe(fs.createWriteStream(filepath));
+            dl.pipe(fs.createWriteStream(filepath, 'binary'));
             dl.on('error', cb);
             dl.on('end', function () {
               cb(null, filename, filepath, video);
@@ -65,8 +65,9 @@ vows.describe('download').addBatch((function () {
 
               // Check md5 hash.
               if (_.has(video, 'md5')) {
-                var raw = fs.readFileSync(filepath);
-                var md5 = md5_hex(raw);
+                var raw = fs.readFileSync(filepath, 'binary');
+                var head = raw.substr(0, 10241);
+                var md5 = md5_hex(head);
                 assert.equal(md5, video.md5, 'md5sum correct.');
               }
 
@@ -76,7 +77,7 @@ vows.describe('download').addBatch((function () {
               }
 
               // Delete file after each test.
-//              fs.unlinkSync(filepath);
+              fs.unlinkSync(filepath);
 
             } else {
               assert.isTrue(exists);

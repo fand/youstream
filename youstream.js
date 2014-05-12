@@ -28,15 +28,17 @@ var createYouStream = function (url, options, auth_path) {
   // Read auth info file.
   fs.readFile(auth_path, function (err, data) {
     if (err) {
-      throw err;
+      // throw err;
+      console.error('failed to read auth.json');
     }
-
-    var sites_auth = JSON.parse(data);    // username, password for websites.
-
-    // Prepare options.
-    var opt_auth = getAuthInfo(url, sites_auth);
+    else {
+      // Prepare options.
+      var sites_auth = JSON.parse(data);    // username, password for websites.
+      var opt_auth = getAuthInfo(url, sites_auth);
+      options = options.concat(opt_auth);
+    }
     var opt_default = ['-q', '-o', '-', url];
-    options = options.concat(opt_auth).concat(opt_default);
+    options = options.concat(opt_default);
 
     // Pipe the stream.
     var youtube_dl = spawn('youtube-dl', options);
