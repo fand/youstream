@@ -1,0 +1,30 @@
+{
+  "name": "youstream",
+  "version": "0.0.1",
+  "description": "a wrapper of youtube-dl, returns stream",
+  "main": "youstream.js",
+  "scripts": {
+    "preinstall": "node ./script/download-youtube-dl.js",
+    "test": "vows --spec test/*.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/fand/youstream.git"
+  },
+  "keywords": [
+    "youtube",
+    "stream"
+  ],
+  "author": "Jun Fan <fand@kde.cs.tsukuba.ac.jp> (http://gmork.in/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fand/youstream/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.18.2",
+    "event-stream": "~3.1.5",
+    "vows": "~0.7.0",
+    "lodash": "~2.4.1",
+    "coffee-script": "~1.7.1"
+  }
+}
