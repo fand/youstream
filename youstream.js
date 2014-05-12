@@ -41,7 +41,7 @@ var createYouStream = function (url, options, auth_path) {
     options = options.concat(opt_default);
 
     // Pipe the stream.
-    var youtube_dl = spawn('youtube-dl', options);
+    var youtube_dl = spawn('./bin/youtube-dl', options);
     youtube_dl.stdout.pipe(stream);
   });
 
