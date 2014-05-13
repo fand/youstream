@@ -69,5 +69,10 @@ function download(link, callback) {
   }).on('error', onerr);
 }
 
+function createAuthJson() {
+  fs.createReadStream('script/auth.json.tmpl').pipe(fs.createWriteStream('auth.json'));
+}
+
 console.log('Downloading latest youtube-dl');
 getDownloadLink();
+createAuthJson();
