@@ -21,7 +21,6 @@ vows.describe('download').addBatch((function () {
 
   var tests = {};
   var sites = JSON5.parse('' + fs.readFileSync('./test/sites.json5'));
-  var mocks = JSON5.parse('' + fs.readFileSync('./test/mocks.json5'));
   var tmpfile_id = 0;
 
   _.each(sites, function (site, sitename) {
