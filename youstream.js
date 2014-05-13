@@ -7,12 +7,12 @@ var es = require('event-stream');
 /**
  * Create a stream of video w/ youtube-dl.
  *
- * @param  {String}        url         - The url of the video.
+ * @param  {String}        video_url   - The url of the video.
  * @param  {Array<String>} [options]   - Options for youtube-dl.
  * @param  {String}        [auth_path] - The path of the JSON file of user info.
  * @return {DuplexStream} - The stream of the video.
  */
-var createYouStream = function (url, options, auth_path) {
+var createYouStream = function (video_url, options, auth_path) {
 
   // Prepare args.
   if (typeof options === 'undefined') {
@@ -21,7 +21,14 @@ var createYouStream = function (url, options, auth_path) {
   if (typeof auth_path === 'undefined') {
     auth_path = './auth.json';
   }
-    
+
+  // Normalize video URL.
+  if (url.parse(video_url).protocol === null) {
+    if (video_url.match('\A\/[^\/]+')) { video_url = 'http://' + video_url; }
+    if (video_url.match('\A\/[^\/]+')) { video_url = 'http:/'  + video_url; }
+    else                               { video_url = 'http:'   + video_url; }
+  }
+
   // Create a relay stream.
   var stream = es.through();
 
@@ -41,19 +48,19 @@ var createYouStream = function (url, options, auth_path) {
         else {
           // Prepare options.
           var sites_auth = JSON.parse(data);    // username, password for websites.
-          var opt_auth = getAuthInfo(url, sites_auth);
+          var opt_auth = getAuthInfo(video_url, sites_auth);
           options = options.concat(opt_auth);
         }
-        cb.bind(this)();        
+        cb.bind(this)();
       });
     }).bind(this);
   }
 
   prepareAuth(function () {
-      
-    var opt_default = ['-q', '-o', '-', url];
+
+    var opt_default = ['-q', '-o', '-', video_url];
     options = options.concat(opt_default);
-      
+
     // Pipe the stream.
     var youtube_dl = spawn('./bin/youtube-dl', options);
     youtube_dl.stdout.pipe(stream);
@@ -74,7 +81,7 @@ var getAuthInfo = function (site_url, sites_auth) {
   var info = [];
 
   var hostname = url.parse(site_url).hostname;
-  var obj;    
+  var obj = {};
   for (var site in sites_auth) {
     if (hostname.match(site)) {
       obj = sites_auth[site];
@@ -85,10 +92,10 @@ var getAuthInfo = function (site_url, sites_auth) {
     info = info.concat(['--username', obj.username]);
   }
   if (typeof obj.password !== 'undefined') {
-    info = info.concat(['--password', obj.password]);                    
+    info = info.concat(['--password', obj.password]);
   }
-  if (typeof obj.videopassword !== 'undefined') {    
-    info = info.concat(['--video-password', obj.videopassword]);          
+  if (typeof obj.videopassword !== 'undefined') {
+    info = info.concat(['--video-password', obj.videopassword]);
   }
 
   return info;

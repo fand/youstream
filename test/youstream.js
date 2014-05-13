@@ -21,6 +21,7 @@ vows.describe('download').addBatch((function () {
 
   var tests = {};
   var sites = JSON5.parse('' + fs.readFileSync('./test/sites.json5'));
+  var mocks = JSON5.parse('' + fs.readFileSync('./test/mocks.json5'));
   var tmpfile_id = 0;
 
   _.each(sites, function (site, sitename) {
@@ -38,7 +39,7 @@ vows.describe('download').addBatch((function () {
         else {
           filename = tmpfile_id++ + 'tmp';
         }
-        var filepath = path.join(__dirname, filename);
+        var filepath = path.join(__dirname, 'tmp', filename);
 
         // Prepare options.
         var options = [];
@@ -54,7 +55,7 @@ vows.describe('download').addBatch((function () {
           }
         }
 
-        return {
+        var test = {
           topic: function() {
             var dl = youstream(video.url, options);
             var cb = this.callback;
@@ -67,7 +68,7 @@ vows.describe('download').addBatch((function () {
 
           },
           'file downloaded correctly': function(err, filename, filepath, expected) {
-            if (err) throw err;
+            if (err) { throw err; }
 
             // Check existance.
             var exists = fs.existsSync(filepath);
@@ -97,6 +98,7 @@ vows.describe('download').addBatch((function () {
           }
         };
 
+        return test;
       })(video);
 
     });
