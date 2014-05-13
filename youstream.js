@@ -1,5 +1,6 @@
 var spawn = require('child_process').spawn;
 var fs = require('fs');
+var path = require('path');
 var url = require('url');
 var es = require('event-stream');
 
@@ -62,7 +63,8 @@ var createYouStream = function (video_url, options, auth_path) {
     options = options.concat(opt_default);
 
     // Pipe the stream.
-    var youtube_dl = spawn('node_modules/youstream/bin/youtube-dl', options);
+    var script_path = path.join(__dirname, 'bin', 'youtube-dl');
+    var youtube_dl = spawn(script_path, options);
     youtube_dl.stdout.pipe(stream);
   });
 
