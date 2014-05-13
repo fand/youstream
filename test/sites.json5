@@ -1,4 +1,4 @@
-{
+{/*
     "dailymotion": [
         {
             "url": "http://www.dailymotion.com/video/x33vw9_tutoriel-de-youtubeur-dl-des-video_tech",
@@ -203,22 +203,74 @@
                 "format": "141"
             }
         }
-    ],
-    "niconico": [{
-        "url": "http://www.nicovideo.jp/watch/sm22312215",
-        "md5": "d1a75c0823e2f629128c43e1212760f9",
-        "info_dict": {
-            "id": "sm22312215",
-            "ext": "mp4",
-            "title": "Big Buck Bunny",
-            "uploader": "takuya0301",
-            "uploader_id": "2698420",
-            "upload_date": "20131123",
-            "description": "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org",
+    ],*/
+    "niconico": [
+        {
+            "url": "http://www.nicovideo.jp/watch/sm22312215",
+            "md5": "d1a75c0823e2f629128c43e1212760f9",
+            "info_dict": {
+                "id": "sm22312215",
+                "ext": "mp4",
+                "title": "Big Buck Bunny",
+                "uploader": "takuya0301",
+                "uploader_id": "2698420",
+                "upload_date": "20131123",
+                "description": "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org"
+            },
+            "params": {
+                "username": "ydl.niconico@gmail.com",
+                "password": "youtube-dl"
+            }
         },
-        "params": {
-            "username": "ydl.niconico@gmail.com",
-            "password": "youtube-dl",
-        },
-    }]
+        {
+            // Load user info from auth.json
+            "url": "http://www.nicovideo.jp/watch/sm22312215",
+            "md5": "d1a75c0823e2f629128c43e1212760f9",
+            "info_dict": {
+                "id": "sm22312215",
+                "ext": "mp4",
+                "title": "Big Buck Bunny",
+                "uploader": "takuya0301",
+                "uploader_id": "2698420",
+                "upload_date": "20131123",
+                "description": "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org"
+            }
+        },        
+        // {
+        //     // nmXXXXXXXX video
+        //     "url": "http://www.nicovideo.jp/watch/nm13656642",
+        //     "md5": "2b03a86a1715719d6f3d8752bdd661e3",
+        //     "info_dict": {
+        //         "id": "nm13656642",
+        //         "ext": "flv",
+        //         "title": "Goreshit - nhk!?",
+        //         "uploader": "tir4z",
+        //         "uploader_id": "7624145",
+        //         "upload_date": "20110220",
+        //         "description": "http://www.lastfm.jp/music/goreshit/my+love+feels+all+wrong."
+        //     },
+        //     "params": {
+        //         "username": "ydl.niconico@gmail.com",
+        //         "password": "youtube-dl"
+        //     }
+        // },        
+        // {
+        //     // TODO: Japanese causes freeze????
+        //     "url": "http://www.nicovideo.jp/watch/sm9",
+        //     "md5": "2b03a86a1715719d6f3d8752bdd661e3",
+        //     "info_dict": {
+        //         "id": "sm9",
+        //         "ext": "flv",
+        //         "title": "新・豪血寺一族 -煩悩解放 - レッツゴー！陰陽師",
+        //         "uploader": "運営長の中の人",
+        //         "uploader_id": "4",
+        //         "upload_date": "20070306",
+        //         "description": "レッツゴー！陰陽師（フルコーラスバージョン）"
+        //     },
+        //     "params": {
+        //         "username": "ydl.niconico@gmail.com",
+        //         "password": "youtube-dl"
+        //     }
+        // }
+    ]
 }

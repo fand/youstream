@@ -21,25 +21,39 @@ var createYouStream = function (url, options, auth_path) {
   if (typeof auth_path === 'undefined') {
     auth_path = './auth.json';
   }
-
+    
   // Create a relay stream.
   var stream = es.through();
 
   // Read auth info file.
-  fs.readFile(auth_path, function (err, data) {
-    if (err) {
-      // throw err;
-      console.error('failed to read auth.json');
-    }
-    else {
-      // Prepare options.
-      var sites_auth = JSON.parse(data);    // username, password for websites.
-      var opt_auth = getAuthInfo(url, sites_auth);
-      options = options.concat(opt_auth);
-    }
+  var prepareAuth;
+  if (options.indexOf('--username') != -1 || options.indexOf('--password') != -1)  {
+    prepareAuth = (function (cb) {
+      cb.bind(this)();
+    }).bind(this);
+  }
+  else {
+    prepareAuth = (function (cb) {
+      fs.readFile(auth_path, function (err, data) {
+        if (err) {
+          stream.emit('failed to read auth.json');
+        }
+        else {
+          // Prepare options.
+          var sites_auth = JSON.parse(data);    // username, password for websites.
+          var opt_auth = getAuthInfo(url, sites_auth);
+          options = options.concat(opt_auth);
+        }
+        cb.bind(this)();        
+      });
+    }).bind(this);
+  }
+
+  prepareAuth(function () {
+      
     var opt_default = ['-q', '-o', '-', url];
     options = options.concat(opt_default);
-
+      
     // Pipe the stream.
     var youtube_dl = spawn('./bin/youtube-dl', options);
     youtube_dl.stdout.pipe(stream);
@@ -57,13 +71,27 @@ var createYouStream = function (url, options, auth_path) {
  * @return {Array<String>} - The user info for the site.
  */
 var getAuthInfo = function (site_url, sites_auth) {
+  var info = [];
+
   var hostname = url.parse(site_url).hostname;
+  var obj;    
   for (var site in sites_auth) {
     if (hostname.match(site)) {
-      return sites_auth[site];
+      obj = sites_auth[site];
     }
   }
-  return [];
+
+  if (typeof obj.username !== 'undefined') {
+    info = info.concat(['--username', obj.username]);
+  }
+  if (typeof obj.password !== 'undefined') {
+    info = info.concat(['--password', obj.password]);                    
+  }
+  if (typeof obj.videopassword !== 'undefined') {    
+    info = info.concat(['--video-password', obj.videopassword]);          
+  }
+
+  return info;
 };
 
 module.exports = createYouStream;
