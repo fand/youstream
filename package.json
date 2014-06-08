@@ -5,7 +5,7 @@
   "main": "youstream.js",
   "scripts": {
     "preinstall": "node ./script/download-youtube-dl.js",
-    "test": "vows --spec test/*.js"
+    "test": "mocha --reporter spec -t 1000 test/*.js"
   },
   "repository": {
     "type": "git",
@@ -22,12 +22,9 @@
     "url": "https://github.com/fand/youstream/issues"
   },
   "devDependencies": {
-    "event-stream": "~3.1.5"
-  },
-  "devDependencies": {
     "event-stream": "~3.1.5",
-    "vows": "~0.7.0",
+    "json5": "~0.2.0",
     "lodash": "~2.4.1",
-    "json5": "~0.2.0"
+    "mocha": "^1.20.1"
   }
 }
