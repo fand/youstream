@@ -55,11 +55,9 @@ describe('download:', function(){
                 options = options.concat(['--video-password', video.params.videopassword]);
               }
               if (_.has(video.params, 'username')) {
-                console.log('username: ' + video.params.username);
                 options = options.concat(['--username', video.params.username]);
               }
               if (_.has(video.params, 'password')) {
-                console.log('password: ' + video.params.password);
                 options = options.concat(['--password', video.params.password]);
               }
             }
