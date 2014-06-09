@@ -25,8 +25,8 @@ var createYouStream = function (video_url, options, auth_path) {
 
   // Normalize video URL.
   if (url.parse(video_url).protocol === null) {
-    if (video_url.match('\A\/[^\/]+')) { video_url = 'http://' + video_url; }
-    if (video_url.match('\A\/[^\/]+')) { video_url = 'http:/'  + video_url; }
+    if (video_url.match(/\A\/[^\/]+/)) { video_url = 'http://' + video_url; }
+    if (video_url.match(/\A\/[^\/]+/)) { video_url = 'http:/'  + video_url; }
     else                               { video_url = 'http:'   + video_url; }
   }
 
@@ -35,13 +35,13 @@ var createYouStream = function (video_url, options, auth_path) {
 
   // Read auth info file.
   var prepareAuth;
-  if (options.indexOf('--username') != -1 || options.indexOf('--password') != -1)  {
-    prepareAuth = (function (cb) {
+  if (options.indexOf('--username') !== -1 || options.indexOf('--password') !== -1)  {
+    prepareAuth = function (cb) {
       cb.bind(this)();
-    }).bind(this);
+    };
   }
   else {
-    prepareAuth = (function (cb) {
+    prepareAuth = function (cb) {
       fs.readFile(auth_path, function (err, data) {
         if (err) {
           stream.emit('failed to read auth.json');
@@ -54,7 +54,7 @@ var createYouStream = function (video_url, options, auth_path) {
         }
         cb.bind(this)();
       });
-    }).bind(this);
+    };
   }
 
   prepareAuth(function () {
