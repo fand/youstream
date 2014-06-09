@@ -60,6 +60,9 @@ describe('download:', function(){
               if (_.has(video.params, 'password')) {
                 options = options.concat(['--password', video.params.password]);
               }
+              if (_.has(video.params, 'skip_download')) {
+                options.push('--skip-download');
+              }
             }
 
             var dl = youstream(video.url, options);
@@ -78,7 +81,24 @@ describe('download:', function(){
             assert(exists, 'downloaded file exists.');
           });
 
-          it('should correct md5sum', function() {
+          it('should have right filesize', function(done){
+            fs.stat(filepath, function (err, stats) {
+              if (err) {
+                assert(false, 'fs.stat error');
+              }
+
+              if (_.has(video.params, 'skip_download')) {
+                assert.equal(stats.size, 0, 'file size is 0.');
+              }
+              else {
+                assert.equal(stats.size, 10241, 'file size is 10kb.');
+              }
+
+              done();
+            });
+          });
+
+          it('should have correct md5sum', function() {
             if (_.has(video, 'md5')) {
               var raw = fs.readFileSync(filepath, 'binary');
               var head = raw.substr(0, 10241);
