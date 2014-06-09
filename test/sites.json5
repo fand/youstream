@@ -218,8 +218,8 @@
                 "description": "(c) copyright 2008, Blender Foundation / www.bigbuckbunny.org"
             },
             "params": {
-                "username": "ydl.niconico@gmail.com",
-                "password": "youtube-dl"
+                "username": "nodejs.youstream@gmail.com",
+                "password": "youstream"
             }
         },
         {
@@ -250,27 +250,27 @@
         //         "description": "http://www.lastfm.jp/music/goreshit/my+love+feels+all+wrong."
         //     },
         //     "params": {
-        //         "username": "ydl.niconico@gmail.com",
-        //         "password": "youtube-dl"
+        //         "username": "nodejs.youstream@gmail.com",
+        //         "password": "youstream"
         //     }
         // },
-        // {
-        //     // TODO: Japanese causes freeze????
-        //     "url": "http://www.nicovideo.jp/watch/sm18509211",
-        //     "md5": "4efe4328ff136e6af04c671dfc3871c2",
-        //     "info_dict": {
-        //         "id": "sm18509211",
-        //         "ext": "flv",
-        //         "title": "imoutoid 60min mix",
-        //         "uploader": "Takumi Yamamoto",
-        //         "uploader_id": "1016527",
-        //         "upload_date": "20120802",
-        //         "description": "imoutoid氏の音源だけを使った60分ミックスです。DL http://www.mediafire.com/?n67kd0e6dd41a84"
-        //     },
-        //     "params": {
-        //         "username": "ydl.niconico@gmail.com",
-        //         "password": "youtube-dl"
-        //     }
-        // }
+        {
+            // TODO: Japanese causes freeze????
+            "url": "http://www.nicovideo.jp/watch/sm18509211",
+            "md5": "4efe4328ff136e6af04c671dfc3871c2",
+            "info_dict": {
+                "id": "sm18509211",
+                "ext": "flv",
+                "title": "imoutoid 60min mix",
+                "uploader": "Takumi Yamamoto",
+                "uploader_id": "1016527",
+                "upload_date": "20120802",
+                "description": "imoutoid氏の音源だけを使った60分ミックスです。DL http://www.mediafire.com/?n67kd0e6dd41a84"
+            },
+            "params": {
+                "username": "nodejs.youstream@gmail.com",
+                "password": "youstream"
+            }
+        }
     ]
 }

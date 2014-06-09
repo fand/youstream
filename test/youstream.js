@@ -41,7 +41,7 @@ describe('download:', function(){
               filename = video.file;
             }
             else if (_.has(video, 'ext')) {
-              filename = tmpfile_id+ + video.ext;
+              filename = tmpfile_id++ + video.ext;
             }
             else {
               filename = tmpfile_id++ + 'tmp';
@@ -49,15 +49,17 @@ describe('download:', function(){
             filepath = path.join(__dirname, 'tmp', filename);
 
             // Prepare options.
-            var options = [];
+            var options = ['--test'];
             if (_.has(video, 'params')) {
               if (_.has(video.params, 'videopassword')) {
                 options = options.concat(['--video-password', video.params.videopassword]);
               }
               if (_.has(video.params, 'username')) {
+                console.log('username: ' + video.params.username);
                 options = options.concat(['--username', video.params.username]);
               }
               if (_.has(video.params, 'password')) {
+                console.log('password: ' + video.params.password);
                 options = options.concat(['--password', video.params.password]);
               }
             }

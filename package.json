@@ -5,7 +5,7 @@
   "main": "youstream.js",
   "scripts": {
     "preinstall": "node ./script/download-youtube-dl.js",
-    "test": "mocha --reporter spec -t 1000 test/*.js"
+    "test": "mocha --reporter spec -t 60000 test/*.js"
   },
   "repository": {
     "type": "git",
