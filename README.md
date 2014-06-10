@@ -4,6 +4,8 @@ YouStream
 [![Build Status](https://travis-ci.org/fand/youstream.svg?branch=master)](https://travis-ci.org/fand/youstream)
 [![Code Climate](https://codeclimate.com/github/fand/youstream.png)](https://codeclimate.com/github/fand/youstream)
 
+[![NPM](https://nodei.co/npm/youstream.png?downloads=true&stars=true)](https://nodei.co/npm/youstream/)
+
 A wrapper of [Youtube-dl](http://rg3.github.io/youtube-dl), returns the video as a stream.
 
 ## Installation
