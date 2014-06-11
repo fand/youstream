@@ -5,8 +5,9 @@
   "main": "youstream.js",
   "scripts": {
     "preinstall": "node ./script/download-youtube-dl.js",
-    "test": "mocha --reporter spec -t 60000 test/*.js && npm run coverage",
-    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha "
+    "test": "./node_modules/.bin/mocha",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha",
+    "travis": "npm run coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
