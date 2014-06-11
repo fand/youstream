@@ -5,7 +5,8 @@
   "main": "youstream.js",
   "scripts": {
     "preinstall": "node ./script/download-youtube-dl.js",
-    "test": "mocha --reporter spec -t 60000 test/*.js"
+    "test": "mocha --reporter spec -t 60000 test/*.js && npm run coverage",
+    "coverage": "./node_modules/istanbul/lib/cli.js cover ./node_modules/mocha/bin/_mocha "
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,12 @@
     "url": "https://github.com/fand/youstream/issues"
   },
   "devDependencies": {
+    "coveralls": "^2.10.0",
     "event-stream": "~3.1.5",
+    "istanbul": "^0.2.11",
     "json5": "~0.2.0",
     "lodash": "~2.4.1",
-    "mocha": "^1.20.1"
+    "mocha": "^1.20.1",
+    "mocha-lcov-reporter": "0.0.1"
   }
 }
