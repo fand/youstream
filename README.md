@@ -3,6 +3,7 @@ YouStream
 
 [![Build Status](https://travis-ci.org/fand/youstream.svg?branch=master)](https://travis-ci.org/fand/youstream)
 [![Code Climate](https://codeclimate.com/github/fand/youstream.png)](https://codeclimate.com/github/fand/youstream)
+[![Coverage Status](https://coveralls.io/repos/fand/youstream/badge.png?branch=coveralls)](https://coveralls.io/r/fand/youstream?branch=coveralls)
 
 [![NPM](https://nodei.co/npm/youstream.png?downloads=true&stars=true)](https://nodei.co/npm/youstream/)
 
